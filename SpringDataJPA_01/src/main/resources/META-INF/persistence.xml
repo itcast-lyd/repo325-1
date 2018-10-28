@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <!--持久化单元配置
+        persistence-unit 元素 => 可以在配置文件中配置多个,每套配置的name属性不应相同
+            name:持久化单元名称 => 加载配置时通过该名称来指定
+            transaction-type:事务模式。
+                    RESOURCE_LOCAL：本地事务 => 传统事务
+                    JTA：分布式事务(不用管了)
+    -->
+    <persistence-unit name="myJpa" transaction-type="RESOURCE_LOCAL">
+        <!--配置JPA提供商(JPA规范的实现者)-->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <!--连接数据库配置-->
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="1234"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/javaee325"/>
+
+            <!--jpa实现方的配置-->
+            <!--是否打印sql语句-->
+            <property name="hibernate.show_sql" value="true"/>
+            <!--是否格式化sql语句-->
+            <property name="hibernate.format_sql" value="true"/>
+            <!--是否自动创建数据库表
+                可选值：create、update、none
+
+                create：程序自动创建数据库表，如果表存在则先删除后创建
+                create-drop:程序自动创建数据库表，如果表存在则先删除后创建,程序结束时会将表删除.
+                **update：没有表程序自动创建数据库表，表结构不一致自动更新表结构
+                validation: 既不会自动建表也不会更新表结构.只会在启动时校验表结构是否一致.
+                **none:不会创建表
+            -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+        </properties>
+    </persistence-unit>
+
+</persistence>
